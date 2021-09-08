@@ -1,9 +1,14 @@
 import { Component } from "react";
+import ContactPageStyled from "./ContactPageStyled";
 
 class ContactPage extends Component {
   state = {};
   render() {
-    return <h2>Contact Page</h2>;
+    return (
+      <ContactPageStyled>
+        <h2 className="sensorTitle">Contacts</h2>
+      </ContactPageStyled>
+    );
   }
 }
 
