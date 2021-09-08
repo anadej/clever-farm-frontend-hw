@@ -15,7 +15,7 @@ const SensorsMap = ({ coordinates }) => {
   const point = new Point(coordinates);
 
   useEffect(() => {
-    const map = new Map({
+    new Map({
       target: "map",
       view: new View({
         center: coordinates,
@@ -39,7 +39,7 @@ const SensorsMap = ({ coordinates }) => {
       ],
     });
     // eslint-disable-next-line
-  }, [coordinates]);
+  }, []);
 
   return (
     <SensorsMapStyled>
