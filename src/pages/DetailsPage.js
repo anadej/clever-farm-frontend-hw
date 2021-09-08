@@ -15,11 +15,11 @@ class DetailsPage extends Component {
     const { name, coordinates } = this.props.location.state.sensor;
     return (
       <DetailsPageStyled>
+        <h2 className="sensorTitle">{name}</h2>
+        <SensorsMap coordinates={coordinates} />
         <button type="button" onClick={this.goBack}>
           Go back
         </button>
-        <h2 className="sensorTitle">{name}</h2>
-        <SensorsMap coordinates={coordinates} />
       </DetailsPageStyled>
     );
   }
