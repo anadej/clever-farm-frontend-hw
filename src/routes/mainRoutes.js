@@ -8,9 +8,9 @@ export const mainRoutes = [
     exact: true,
   },
   {
-    name: "Contact",
-    path: "/contact",
-    component: lazy(() => import("../pages/ContactPage")),
+    name: "BigCalendar",
+    path: "/big-calendar",
+    component: lazy(() => import("../pages/BigCalendarPage")),
     exact: true,
   },
 ];
