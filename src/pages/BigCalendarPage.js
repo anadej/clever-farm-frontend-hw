@@ -17,7 +17,7 @@ let EVENTS = [
     title: "First Event",
     start: new Date(2021, 10, 29, 15, 30, 0),
     end: new Date(2021, 10, 29, 15, 35, 0),
-    days: "Mondey",
+    day: ["Mondey"],
     startTime: "15:30",
   },
   {
@@ -25,7 +25,7 @@ let EVENTS = [
     title: "Second Event",
     start: new Date(2021, 10, 30, 11, 0, 0),
     end: new Date(2021, 10, 30, 12, 0, 0),
-    days: "Tuesday",
+    day: ["Tuesday"],
     startTime: "11:00",
   },
   {
@@ -33,7 +33,7 @@ let EVENTS = [
     title: 'Today',
     start: new Date(new Date().setHours(new Date().getHours() + 1)),
     end: new Date(new Date().setHours(new Date().getHours() + 2)),
-    days: "Tuesday",
+    day: ["Tuesday"],
     startTime: "11:00",    
   },
 ]
@@ -47,7 +47,7 @@ const initEvent = {
   title: "",
   start: "",
   end: "",
-  days: "",
+  day: "",
   startTime: ""}
 
 function BigCalendarPage() {
@@ -59,9 +59,9 @@ function BigCalendarPage() {
   const [allEvents, setAllEvents] = useState(EVENTS);
   const [currentEvent, setCurrentEvent] = useState(initEvent);
  
-  const handleOpenModal = ({id="", title="", start, end, days="", startTime}) => {
+  const handleOpenModal = ({id="", title="", start, end, day=[], startTime}) => {
     if (startTime===undefined) startTime = start.toTimeString().substr(0, 5);
-    setCurrentEvent({id, title, start, end, days, startTime});
+    setCurrentEvent({id, title, start, end, day, startTime});
     setOpen(true);
   }
   
@@ -97,6 +97,7 @@ function BigCalendarPage() {
           selectable={true}
           scrollToTime={new Date(1970, 1, 1, 8)}
           toolbar={false} 
+          
           formats={formats}
           defaultView={Views.WEEK}
           style={{height:"80vh", margin: "30px"}} 
@@ -142,3 +143,13 @@ export default BigCalendarPage;
   //     setAllEvents([...allEvents, {title, start, end}]);  
   //   }
   // }
+
+
+  // const handleChangeCheckbox = ({ target }) => {
+  //   const value = target.type === 'checkbox' ? target.checked : target.value;
+  //   const name = target.name;    
+  //   console.log(`target`, target);
+  //   console.log(`value`, value);
+  //   console.log(`name`, name);
+  //   // setEvent({...event, [name]: value });   
+  // };

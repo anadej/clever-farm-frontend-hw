@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-// import Stack from '@mui/material/Stack';
-// import Avatar from '@mui/material/Avatar';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -47,24 +45,33 @@ function ModalEvent (props) {
   const {currentEvent, open, onClose} = props;
 
   const [event, setEvent] = useState(currentEvent);
+  const [days,setDays] = useState(event.day);
   
   const handleChange = ({ target }) => {
     const { name, value } = target; 
-    setEvent({...event, [name]: value });   
+
+    if (target.type === 'checkbox'){
+      let data = days;
+      const check = data.indexOf(value);
+      check === -1? data.push(value) : data.splice(check,1);
+      setDays(data);
+      setEvent({...event, [name]: days});
+    } else {
+      setEvent({...event, [name]: value });   
+    }
   };
-  
+
   const handleSubmitCancel = () => {
     onClose(); 
   };
   
   const handleSubmitSave = evt => {
-    evt.preventDefault();
-    console.log(`event`, event);
+    // evt.preventDefault();
     onClose(event); 
   };
 
   const handleSubmitDelete = evt => {
-    evt.preventDefault();
+    // evt.preventDefault();
     onClose(event.id); 
   };
 
@@ -91,10 +98,10 @@ function ModalEvent (props) {
                 <FormGroup row>
                   {weekDays.map(option => (
                     <FormControlLabel key={option.value} control={<Checkbox 
-                        onChange={handleChange}
-                        checked={event.days===option.value}
+                        onChange={(e)=>handleChange(e)}
+                        checked={days.includes(option.value)}
                         value={option.value}
-                        name="days"
+                        name="day"
                         inputProps={{ 'aria-label': 'controlled' }}
                       />} 
                       label={option.label}
@@ -116,7 +123,7 @@ function ModalEvent (props) {
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSubmitSave}>{event.title ? "EDIT" : "ADD"}</Button>
+          <Button onClick={handleSubmitSave}>{event.id ? "EDIT" : "ADD"}</Button>
           {event.title && <Button onClick={handleSubmitDelete}>DELETE</Button>}
           <Button onClick={handleSubmitCancel}>CANCEL</Button>
         </DialogActions>
