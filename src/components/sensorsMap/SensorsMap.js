@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "ol/ol.css";
 import { Circle, Fill, Style } from "ol/style";
-import { Feature, Map, Overlay, View } from "ol/index";
+import { Feature, Map, /*Overlay,*/ View } from "ol/index";
 import { OSM, Vector as VectorSource } from "ol/source";
 import { Point } from "ol/geom";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
