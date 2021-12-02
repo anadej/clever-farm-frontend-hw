@@ -100,12 +100,12 @@ function BigCalendarPage() {
     const oldEvent = allEvents.filter(item => item.id === value.id);
 
     const dayUpdate = value.weekDay-oldEvent[0].weekDay;
-    // const hourUpdate =
-    // const minuteUpdate = 
+    const hourUpdate = value.startTime.substr(0,2) - oldEvent[0].startTime.substr(0,2);
+    const minUpdate = value.startTime.substr(-2,2) - oldEvent[0].startTime.substr(-2,2);
 
     value = {...value, 
-      start: new Date(value.start.valueOf() + 24*60*60*1000*dayUpdate), 
-      end: new Date(value.end.valueOf() + 24*60*60*1000*dayUpdate), 
+      start: new Date(value.start.valueOf() + 24*60*60*1000*dayUpdate + 60*60*1000*hourUpdate + 60*1000*minUpdate), 
+      end: new Date(value.end.valueOf() + 24*60*60*1000*dayUpdate + 60*60*1000*hourUpdate + 60*1000*minUpdate), 
     } 
     //24*60*60*1000 - 1 den v millisecundech
     //60*60*1000 - 1 hodina v millisecundech

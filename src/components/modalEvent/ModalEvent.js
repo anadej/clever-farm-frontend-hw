@@ -18,8 +18,12 @@ function ModalEvent (props) {
   const [event, setEvent] = useState(currentEvent);
   
   const handleChange = ({ target }) => {
-    const { name, value } = target; 
-    setEvent({...event, [name]: parseInt(value) });   
+    const { name, value, type } = target; 
+    if (type === "radio") {
+    setEvent({...event, [name]: parseInt(value) });
+    return;
+    }
+    setEvent({...event, [name]: value });
   };
 
   const handleSubmitCancel = () => {
@@ -28,7 +32,6 @@ function ModalEvent (props) {
   
   const handleSubmitSave = evt => {
     // evt.preventDefault();
-    console.log(`eventSubmit`, event);
     onClose(event); 
   };
 
