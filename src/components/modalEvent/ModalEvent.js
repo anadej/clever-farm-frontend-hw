@@ -6,59 +6,20 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Grid from "@mui/material/Grid";
 import FormLabel from '@mui/material/FormLabel';
-import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-
-const weekDays = [
-  {
-    value: "Mondey",
-    label: "PO",
-  },
-  {
-    value: "Tuesday",
-    label: "ÚT",
-  },
-  {
-    value: "Wednesday",
-    label: "ST",
-  },
-  {
-    value: "Thurthday",
-    label: "ČT",
-  },
-  {
-    value: "Friday",
-    label: "PÁ",
-  },
-  {
-    value: "Saturday",
-    label: "SO",
-  },
-  {
-    value: "Sunday",
-    label: "NE",
-  },
-];
+import FormControl from '@mui/material/FormControl';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import weekDays from "../../data/weekDays.json";
 
 function ModalEvent (props) {
   const {currentEvent, open, onClose} = props;
 
   const [event, setEvent] = useState(currentEvent);
-  const [days,setDays] = useState(event.day);
   
   const handleChange = ({ target }) => {
     const { name, value } = target; 
-
-    if (target.type === 'checkbox'){
-      let data = days;
-      const check = data.indexOf(value);
-      check === -1? data.push(value) : data.splice(check,1);
-      setDays(data);
-      setEvent({...event, [name]: days});
-    } else {
-      setEvent({...event, [name]: value });   
-    }
+    setEvent({...event, [name]: parseInt(value) });   
   };
 
   const handleSubmitCancel = () => {
@@ -67,6 +28,7 @@ function ModalEvent (props) {
   
   const handleSubmitSave = evt => {
     // evt.preventDefault();
+    console.log(`eventSubmit`, event);
     onClose(event); 
   };
 
@@ -94,21 +56,27 @@ function ModalEvent (props) {
                 /> 
               </Grid>
               <Grid item xs={12}>
-                <FormLabel component="legend">Den spuštění:</FormLabel>
-                <FormGroup row>
-                  {weekDays.map(option => (
-                    <FormControlLabel key={option.value} control={<Checkbox 
-                        onChange={(e)=>handleChange(e)}
-                        checked={days.includes(option.value)}
-                        value={option.value}
-                        name="day"
-                        inputProps={{ 'aria-label': 'controlled' }}
-                      />} 
-                      label={option.label}
-                      labelPlacement="bottom"
-                    />
-                  ))}
-                </FormGroup>
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Den spuštění:</FormLabel>
+                  <RadioGroup
+                    aria-label="gender"
+                    defaultValue=""
+                    row
+                  >
+                    {weekDays.map(option => (
+                      <FormControlLabel key={option.value} value={option.num}
+                      control={
+                        <Radio
+                          onChange={(e)=>handleChange(e)}
+                          checked={event.weekDay===option.num}
+                          name="weekDay"
+                        />} 
+                        label={option.label} 
+                        labelPlacement="bottom" 
+                      />
+                    ))}  
+                  </RadioGroup>
+                </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <FormLabel component="legend">Začátek spuštění:</FormLabel>

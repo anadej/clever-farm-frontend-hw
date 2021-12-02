@@ -1,0 +1,44 @@
+[
+    {
+      "num": 1,
+      "short": "Mon",
+      "value": "Mondey",
+      "label": "PO"
+    },
+    {
+      "num": 2,
+      "short": "Tue",
+      "value": "Tuesday",
+      "label": "ÚT"
+    },
+    {
+      "num": 3,
+      "short": "Wed",
+      "value": "Wednesday",
+      "label": "ST"
+    },
+    {
+      "num": 4,
+      "short": "Thu",
+      "value": "Thurthday",
+      "label": "ČT"
+    },
+    {
+      "num": 5,
+      "short": "Fri",
+      "value": "Friday",
+      "label": "PÁ"
+    },
+    {
+      "num": 6,
+      "short": "Sat",
+      "value": "Saturday",
+      "label": "SO"
+    },
+    {
+      "num": 7,
+      "short": "Sun",
+      "value": "Sunday",
+      "label": "NE"
+    }
+  ]
