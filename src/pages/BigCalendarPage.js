@@ -2,11 +2,19 @@ import React, { useState } from 'react';
 import BigCalendarPageStyled from "./BigCalendarPageStyled";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from 'moment';
+
 import 'moment/locale/cs'  
 //provide changes in this file (line 105) 
 //uppercase first letter of Days name 
+
 import { useMediaQuery } from 'react-responsive'
+
 import "react-big-calendar/lib/css/react-big-calendar.css";
+// for hide allday cell need add this on line 467
+//  .rbc-allday-cell {
+//  display: none;
+//}
+
 import ModalEvent from "../components/modalEvent/ModalEvent";
 // import weekDays from "../data/weekDays.json"
 
@@ -14,16 +22,16 @@ let EVENTS = [
   {
     id: 1,
     title: "First Event",
-    start: new Date(2021, 10, 29, 15, 30, 0),
-    end: new Date(2021, 10, 29, 15, 35, 0),
+    start: new Date(2021, 11, 6, 15, 30, 0),
+    end: new Date(2021, 11, 6, 15, 45, 0),
     weekDay: 1,
     startTime: "15:30",
   },
   {
     id: 2,
     title: "Second Event",
-    start: new Date(2021, 10, 30, 11, 0, 0),
-    end: new Date(2021, 10, 30, 12, 0, 0),
+    start: new Date(2021, 11, 7, 11, 0, 0),
+    end: new Date(2021, 11, 7, 12, 0, 0),
     weekDay: 2,
     startTime: "11:00",
   },
@@ -32,13 +40,13 @@ let EVENTS = [
     title: 'Today',
     start: new Date(new Date().setHours(new Date().getHours() + 1)),
     end: new Date(new Date().setHours(new Date().getHours() + 2)),
-    weekDay: 2,
+    weekDay: new Date(new Date().setHours(new Date().getHours() + 1)).getDay(),
     startTime: "11:00",    
   },
 ]
 
 //set Monday as first day of Week
-moment.locale('ko', {
+moment.locale('cs', {
   week: {
       dow: 1,
       doy: 1,
@@ -50,6 +58,8 @@ const localizer = momentLocalizer(moment);
 //set formats for Big Calendar
 let formats = {
   dayFormat: (date, culture, localizer) => 
+    localizer.format(date, 'dddd', culture),
+  dayHeaderFormat: (date, culture, localizer) => 
     localizer.format(date, 'dddd', culture),
   eventTimeRangeFormat: range =>
     localizer.format(range.start, 'HH:mm'),
@@ -129,11 +139,9 @@ function BigCalendarPage() {
           scrollToTime={new Date(1970, 1, 1, 8)}
           formats={formats}
           defaultView={Views.WEEK}
-
-          titleAccessor={'title'}
-
           selectable={true}
-          toolbar={false} 
+
+          toolbar={false}
           
           style={{height:"80vh", margin: "30px"}} 
           onSelectEvent={handleOpenModal}
@@ -147,13 +155,16 @@ function BigCalendarPage() {
           scrollToTime={new Date(1970, 1, 1, 8)}
           formats={formats}
           defaultView={Views.DAY}
-
           selectable={true}
+          
           toolbar={true} 
+          views={["day"]}
+          messages={{next:"Další",previous:"Předchozí",today:"Dnes"}}
           
           style={{height:"80vh", margin: "30px"}} 
           onSelectEvent={handleOpenModal}
-          onSelectSlot={handleOpenModal}        
+          onSelectSlot={handleOpenModal}    
+    
         />}
       {open && 
         <ModalEvent
